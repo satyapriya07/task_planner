@@ -46,3 +46,25 @@ export const getTodayTasks = async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 };
+
+// @desc    Mark task as complete
+// @route   PATCH /api/tasks/:id/complete
+// @access  Public
+export const completeTask = async (req, res) => {
+    try {
+        const { completedAt } = req.body;
+        const task = await Task.findById(req.params.id);
+
+        if (!task) {
+            return res.status(404).json({ message: 'Task not found' });
+        }
+
+        task.status = 'Completed';
+        task.completedAt = completedAt || new Date();
+
+        const updatedTask = await task.save();
+        res.json(updatedTask);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+};
