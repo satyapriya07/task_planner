@@ -1,10 +1,6 @@
 <div class="form-container">
     <h2>Add New Task</h2>
 
-    <div *ngIf="errorMessage" class="error-alert">
-        {{ errorMessage }}
-    </div>
-
     <form [formGroup]="taskForm" (ngSubmit)="onSubmit()">
         <div class="form-group">
             <label for="customerName">Customer Name*</label>
