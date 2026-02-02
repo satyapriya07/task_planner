@@ -1,1 +1,32 @@
-<p>today-tasks works!</p>
+<div class="tasks-container">
+    <h2>Today's Tasks</h2>
+
+    <div *ngIf="isLoading" class="loading-state">
+        <p>Loading tasks...</p>
+    </div>
+
+    <div *ngIf="!isLoading && tasks.length === 0" class="empty-state">
+        <p>No tasks scheduled for today.</p>
+    </div>
+
+    <div *ngIf="!isLoading && tasks.length > 0" class="tasks-grid">
+        <div *ngFor="let task of tasks" class="task-card" [class.completed]="task.status === 'Completed'">
+            <div class="task-header">
+                <span class="task-type" [ngClass]="task.taskType.toLowerCase()">{{ task.taskType }}</span>
+                <span class="task-status" [ngClass]="task.status?.toLowerCase() || 'pending'">{{ task.status }}</span>
+            </div>
+
+            <h3>{{ task.customerName }}</h3>
+
+            <div class="task-details">
+                <p><strong><i class="icon">📍</i> Location:</strong> {{ task.location }}</p>
+                <p><strong><i class="icon">🕒</i> Time:</strong> {{ task.scheduledTime | date:'shortTime' }}</p>
+            </div>
+
+            <div *ngIf="task.notes" class="task-notes">
+                <p><strong>Notes:</strong> {{ task.notes }}</p>
+            </div>
+
+        </div>
+    </div>
+</div>
