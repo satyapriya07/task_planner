@@ -37,4 +37,47 @@ export class TodayTasks implements OnInit {
       }
     });
   }
+
+  onComplete(task: Task, event: Event): void {
+    const checkbox = event.target as HTMLInputElement;
+
+    // Prevent immediate checking if we want to confirm first (optional, but good UX)
+    // For now, we'll let it check, and if cancelled, uncheck it.
+
+    // Default to current time
+    const now = new Date();
+    const defaultTime = now.toISOString().slice(0, 16); // format for datetime-local if used, or just string
+
+    const timeStr = prompt('Enter completion time (YYYY-MM-DD HH:MM) or leave empty for now:', defaultTime.replace('T', ' '));
+
+    if (timeStr === null) {
+      // User cancelled
+      checkbox.checked = false;
+      return;
+    }
+
+    const completedAt = timeStr ? new Date(timeStr) : new Date();
+
+    if (isNaN(completedAt.getTime())) {
+      this.toastService.show('Invalid date format', 'error');
+      checkbox.checked = false;
+      return;
+    }
+
+    this.taskService.completeTask(task._id!, { completedAt }).subscribe({
+      next: (updatedTask) => {
+        this.toastService.show('Task marked as completed', 'success');
+        // Update local state
+        const index = this.tasks.findIndex(t => t._id === updatedTask._id);
+        if (index !== -1) {
+          this.tasks[index] = updatedTask;
+        }
+      },
+      error: (error) => {
+        checkbox.checked = false;
+        this.toastService.show('Failed to complete task', 'error');
+        console.error('Error completing task:', error);
+      }
+    });
+  }
 }

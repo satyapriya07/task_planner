@@ -13,7 +13,14 @@
         <div *ngFor="let task of tasks" class="task-card" [class.completed]="task.status === 'Completed'">
             <div class="task-header">
                 <span class="task-type" [ngClass]="task.taskType.toLowerCase()">{{ task.taskType }}</span>
-                <span class="task-status" [ngClass]="task.status?.toLowerCase() || 'pending'">{{ task.status }}</span>
+                <div class="status-group">
+                    <label class="checkbox-container" *ngIf="task.status !== 'Completed'">
+                        <input type="checkbox" (change)="onComplete(task, $event)">
+                        <span class="checkmark"></span>
+                    </label>
+                    <span class="task-status" [ngClass]="task.status?.toLowerCase() || 'pending'">{{ task.status
+                        }}</span>
+                </div>
             </div>
 
             <h3>{{ task.customerName }}</h3>
