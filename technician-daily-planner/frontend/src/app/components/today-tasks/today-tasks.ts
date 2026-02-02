@@ -83,6 +83,12 @@ export class TodayTasks implements OnInit {
         const index = this.tasks.findIndex(t => t._id === updatedTask._id);
         if (index !== -1) {
           this.tasks[index] = updatedTask;
+
+          // Re-sort: Pending first, then Completed
+          this.tasks.sort((a, b) => {
+            if (a.status === b.status) return 0;
+            return a.status === 'Pending' ? -1 : 1;
+          });
         }
       },
       error: (error) => {
