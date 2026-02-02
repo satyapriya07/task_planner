@@ -14,6 +14,18 @@ export class TodayTasks implements OnInit {
   tasks: Task[] = [];
   isLoading = true;
 
+  get totalTasks(): number {
+    return this.tasks.length;
+  }
+
+  get completedTasks(): number {
+    return this.tasks.filter(t => t.status === 'Completed').length;
+  }
+
+  get pendingTasks(): number {
+    return this.tasks.filter(t => t.status !== 'Completed').length;
+  }
+
   constructor(
     private taskService: TaskService,
     private toastService: ToastService

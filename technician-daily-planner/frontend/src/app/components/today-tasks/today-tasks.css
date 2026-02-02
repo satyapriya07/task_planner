@@ -10,6 +10,65 @@ h2 {
     color: #333;
 }
 
+/* Stats Dashboard */
+.stats-container {
+    display: flex;
+    justify-content: center;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    flex-wrap: wrap;
+}
+
+.stat-card {
+    background: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    min-width: 150px;
+    border-bottom: 4px solid #ccc;
+    flex: 1;
+    max-width: 200px;
+}
+
+.stat-value {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.stat-label {
+    color: #666;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-card.total {
+    border-bottom-color: #007bff;
+}
+
+.stat-card.total .stat-value {
+    color: #007bff;
+}
+
+.stat-card.completed {
+    border-bottom-color: #28a745;
+}
+
+.stat-card.completed .stat-value {
+    color: #28a745;
+}
+
+.stat-card.pending {
+    border-bottom-color: #fd7e14;
+}
+
+.stat-card.pending .stat-value {
+    color: #fd7e14;
+}
+
+/* Existing Styles */
 .loading-state,
 .empty-state {
     text-align: center;

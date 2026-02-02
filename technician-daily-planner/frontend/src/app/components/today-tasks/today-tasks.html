@@ -1,6 +1,21 @@
 <div class="tasks-container">
     <h2>Today's Tasks</h2>
 
+    <div class="stats-container" *ngIf="!isLoading">
+        <div class="stat-card total">
+            <div class="stat-value">{{ totalTasks }}</div>
+            <div class="stat-label">Total Tasks</div>
+        </div>
+        <div class="stat-card completed">
+            <div class="stat-value">{{ completedTasks }}</div>
+            <div class="stat-label">Completed</div>
+        </div>
+        <div class="stat-card pending">
+            <div class="stat-value">{{ pendingTasks }}</div>
+            <div class="stat-label">Pending</div>
+        </div>
+    </div>
+
     <div *ngIf="isLoading" class="loading-state">
         <p>Loading tasks...</p>
     </div>
